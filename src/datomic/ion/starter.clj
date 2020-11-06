@@ -62,3 +62,41 @@
          :in $ ?type pull-expr
          :where [?e :inv/type ?type]]
        db type pull-expr))
+
+
+(comment
+
+  (require '[camel-snake-kebab.core :as csk])
+
+  (defn vuln-json-keys-to-datomic
+    "used by (json/read-str (slurp [FILE]) :key-fn vuln-json-to-datomic)"
+    [k]
+    (keyword "vuln" (csk/->kebab-case k)))
+
+  (defn- vuln-to-datomic
+    [vuln ]
+    )
+
+  (defn format-vuln
+    [vuln]
+    (reduce-kv vuln-to-datomic [vuln]))
+
+  (load-file "siderail/user.repl")
+
+  (require '[hodur-engine.core :as hodur])
+  (require '[hodur-datomic-schema.core :as hodur-datomic])
+  (require '[hodur-graphviz-schema.core :as hodur-graphviz])
+
+  (def meta-db (-> "schemas/vuln.edn"
+                   io/resource
+                   hodur/init-path))
+
+  (def h-schema (hodur-datomic/schema meta-db))
+  (def graphviz-schema (hodur-graphviz/schema meta-db))
+
+
+  (def client (starter/get-client))
+  (d/create-database client {:db-name "vulns"})
+  (def conn (d/connect client {:db-name "vulns"}))
+  (d/transact conn {:tx-data h-schema})
+  )

@@ -1,0 +1,16 @@
+[^{:datomic/tag-recursive true}
+ Employee
+ [^String name
+  ^Float  salary]
+
+ Company
+ [^String address]
+
+ ^{:union true}
+ SearchItem
+ [Employee Company]
+
+ QueryRoot
+ [^{:type SearchItem
+    :cardinality [0 n]}
+  search [^String term]]]

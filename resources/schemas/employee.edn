@@ -1,0 +1,9 @@
+[^{:datomic/tag true}
+ default
+
+ Employee
+ [^{:type String} first-name
+  ^{:type String} last-name]
+
+ Project
+ [^{:type String} name]]

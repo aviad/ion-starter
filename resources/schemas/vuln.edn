@@ -1,0 +1,57 @@
+[^{:datomic/tag true
+   :graphviz/tag true}
+ default
+
+ Vuln
+ [^{:type String
+    :datomic/unique :db.unique/identity} id
+  ^String url
+  ^String title
+  ^{:cardinality [0 n]
+    :type String} credit
+  ^String package
+  ^String registry
+  ^String description
+  ^{:cardinality [0 n]
+    :type String} cves
+  ^{:cardinality [0 n]
+    :type String} cwes
+  ^{:cardinality [0 n]
+    :type String} identifiers
+  ^Boolean fixable
+  ^{:cardinality [0 n]
+    :type String} vulnerableVersions
+  ^Severity severity
+  ^Float cvssScore
+
+  ^String cvssV3,
+  ^Exploit exploit,
+  ^Boolean malicious
+  ^Boolean premium,
+  ^DateTime creationTime,
+  ^DateTime modificationTime,
+  ^DateTime disclosureTime,
+  ^DateTime publicationTime,
+  ^{:type Reference
+    :datomic/isComponent true
+    :cardinality [0 n]} references
+
+  ^Severity nvdSeverity,
+  ^{:type Severity
+    :optional true} relativeImportance,
+  ^String distroName,
+  ^String distroRelease
+  ]
+
+ ^{:enum true}
+ Severity
+ [info low medium high critical]
+
+ ^{:enum true}
+ Exploit
+ [Functional Not_Defined]
+
+ Reference
+ [^String title
+  ^String url]
+ ]

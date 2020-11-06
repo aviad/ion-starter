@@ -1,0 +1,9 @@
+[^{:datomic/tag-recursive true}
+ Person
+ [^String first-name [^Unit unit]
+  ^String last-name]
+
+ ^{:enum true}
+ Unit
+ [CENTIMETERS FEET]
+ ]
